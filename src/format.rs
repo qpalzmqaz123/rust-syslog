@@ -71,7 +71,7 @@ impl<T: Display> LogFormat<T> for Formatter3164 {
                 w,
                 "<{}>{} {} {}[{}]: {}",
                 encode_priority(severity, self.facility),
-                time::now().strftime("%b %d %T").unwrap(),
+                time::now_utc().strftime("%b %d %T").unwrap(),
                 hostname,
                 self.process,
                 self.pid,
@@ -83,7 +83,7 @@ impl<T: Display> LogFormat<T> for Formatter3164 {
                 w,
                 "<{}>{} {}[{}]: {}",
                 encode_priority(severity, self.facility),
-                time::now().strftime("%b %d %T").unwrap(),
+                time::now_utc().strftime("%b %d %T").unwrap(),
                 self.process,
                 self.pid,
                 message
