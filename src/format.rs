@@ -69,23 +69,23 @@ impl<T: Display> LogFormat<T> for Formatter3164 {
         if let Some(ref hostname) = self.hostname {
             write!(
                 w,
-                "<{}>{} {} {}[{}]: {}",
+                "<{}> {}",
                 encode_priority(severity, self.facility),
-                time::now_utc().strftime("%b %d %T").unwrap(),
-                hostname,
-                self.process,
-                self.pid,
+                // time::now_utc().strftime("%b %d %T").unwrap(),
+                // hostname,
+                // self.process,
+                // self.pid,
                 message
             )
             .chain_err(|| ErrorKind::Format)
         } else {
             write!(
                 w,
-                "<{}>{} {}[{}]: {}",
+                "<{}> {}",
                 encode_priority(severity, self.facility),
-                time::now_utc().strftime("%b %d %T").unwrap(),
-                self.process,
-                self.pid,
+                // time::now_utc().strftime("%b %d %T").unwrap(),
+                // self.process,
+                // self.pid,
                 message
             )
             .chain_err(|| ErrorKind::Format)
