@@ -328,7 +328,7 @@ pub fn tcp<T: ToSocketAddrs, F>(formatter: F, server: T) -> Result<Logger<Logger
 }
 
 /// returns a TCP logger connecting `local` and `server`
-pub fn tcp_timeout<T: ToSocketAddrs, F>(formatter: F, server: &SocketAddr, time: u64) -> Result<Logger<LoggerBackend, F>> {
+pub fn tcp_timeout<F>(formatter: F, server: &SocketAddr, time: u64) -> Result<Logger<LoggerBackend, F>> {
 
     TcpStream::connect_timeout(server, std::time::Duration::from_micros(time))
         .chain_err(|| ErrorKind::Initialization)
