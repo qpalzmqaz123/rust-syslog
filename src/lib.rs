@@ -327,6 +327,20 @@ pub fn tcp<T: ToSocketAddrs, F>(formatter: F, server: T) -> Result<Logger<Logger
         })
 }
 
+/// returns a TCP logger connecting `local` and `server`
+pub fn tcp_timeout<T: ToSocketAddrs, F>(formatter: F, server: &SocketAddr, time: u64) -> Result<Logger<LoggerBackend, F>> {
+
+    TcpStream::connect_timeout(server, std::time::Duration::from_micros(time))
+        .chain_err(|| ErrorKind::Initialization)
+        .and_then(|socket| {
+            Ok(Logger {
+                formatter,
+                backend: LoggerBackend::Tcp(BufWriter::new(socket)),
+            })
+        })
+}
+
+
 pub struct BasicLogger {
     logger: Arc<Mutex<Logger<LoggerBackend, Formatter3164>>>,
 }
